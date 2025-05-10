@@ -8,6 +8,7 @@ aiohttp
 httpx
 pymongo
 asyncpg
+bcrypt
 crawl4ai
 pydantic
 uvicorn
