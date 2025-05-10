@@ -17,3 +17,4 @@ google
 google.generativeai
 python-multipart
 pydantic[email]
+playwright
