@@ -76,7 +76,7 @@
 import google.generativeai as genai
 import logging
 from src.crawler import knowledge_base
-from config import GEMINI_API_KEY
+from src.config import GEMINI_API_KEY
 from urllib.parse import urlparse, urlunparse
 
 # Configure logging
