@@ -207,16 +207,16 @@ import logging
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
-from models import URLRequest, QueryRequest
-from crawler import crawl_website, knowledge_base
-from llm import query_website
+from src.models import URLRequest, QueryRequest
+from src.crawler import crawl_website, knowledge_base
+from src.llm import query_website
 from urllib.parse import urlparse, urlunparse
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Optional
 from pydantic import BaseModel, EmailStr
-from database import init_db, add_user, get_user_by_email
+from src.database import init_db, add_user, get_user_by_email
 from dotenv import load_dotenv
 
 # Add src/ to Python path
