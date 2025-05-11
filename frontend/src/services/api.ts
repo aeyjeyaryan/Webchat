@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const api = axios.create({
-  baseURL: 'https://webchat-l6uf.onrender.com',
+  baseURL: 'https://webchat-p2tp.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
