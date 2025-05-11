@@ -90,11 +90,13 @@ async def crawl_website(url: str | HttpUrl) -> None:
     try:
         async with AsyncWebCrawler(verbose=True, user_agent="MyCrawler/1.0") as crawler:
             logger.info(f"Starting crawl for {normalized_url}")
-            # Warm up crawler with lightweight browser settings
-            await crawler.warmup(headless=True, browser_args=["--no-sandbox", "--disable-gpu", "--disable-setuid-sandbox"])
-            # Run crawl with timeout and error handling
+            # Run crawl with timeout, browser args, and error handling
             result = await asyncio.wait_for(
-                crawler.arun(url=normalized_url),
+                crawler.arun(
+                    url=normalized_url,
+                    headless=True,
+                    browser_args=["--no-sandbox", "--disable-gpu", "--disable-setuid-sandbox", "--disable-webrtc"]
+                ),
                 timeout=30  # 30 seconds
             )
             if not result.success:
