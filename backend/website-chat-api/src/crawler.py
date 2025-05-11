@@ -48,7 +48,6 @@
 #     except Exception as e:
 #         logger.error(f"Crawling failed for {normalized_url}: {type(e).__name__}: {str(e)}")
 #         raise
-
 from crawl4ai import AsyncWebCrawler
 import logging
 from typing import Dict
@@ -95,9 +94,15 @@ async def crawl_website(url: str | HttpUrl) -> None:
                 crawler.arun(
                     url=normalized_url,
                     headless=True,
-                    browser_args=["--no-sandbox", "--disable-gpu", "--disable-setuid-sandbox", "--disable-webrtc"]
+                    browser_args=[
+                        "--no-sandbox",
+                        "--disable-gpu",
+                        "--disable-setuid-sandbox",
+                        "--disable-webrtc",
+                        "--disable-dev-shm-usage"
+                    ]
                 ),
-                timeout=30  # 30 seconds
+                timeout=60  # Increased to 60 seconds
             )
             if not result.success:
                 logger.error(f"Crawl failed for {normalized_url}: {result.error_message}")
@@ -106,8 +111,8 @@ async def crawl_website(url: str | HttpUrl) -> None:
             logger.info(f"Successfully crawled and stored content for {normalized_url}")
             logger.info(f"Current knowledge_base keys: {list(knowledge_base.keys())}")
     except asyncio.TimeoutError:
-        logger.error(f"Crawling timed out for {normalized_url} after 30 seconds")
-        raise HTTPException(status_code=504, detail="Crawling timed out after 30 seconds")
+        logger.error(f"Crawling timed out for {normalized_url} after 60 seconds")
+        raise HTTPException(status_code=504, detail="Crawling timed out after 60 seconds")
     except Exception as e:
         logger.error(f"Crawling failed for {normalized_url}: {type(e).__name__}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Crawling failed: {type(e).__name__}: {str(e)}")
